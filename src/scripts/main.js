@@ -2,29 +2,22 @@
 'use strict';
 
 window.addEventListener('DOMContentLoaded', function () {
-  const spiderImg = document.querySelector('img[src*="spider.svg"]');
+  const spiderImg = document.querySelector('.spider');
+  const wall = document.querySelector('.wall');
 
-  if (!spiderImg) {
+  if (!spiderImg || !wall) {
     return;
   }
 
   function centerSpider() {
-    const wall = document.querySelector('.wall');
-
-    if (!wall) {
-      return;
-    }
-
-    const border = 10;
-    const wallRect = wall.getBoundingClientRect();
     const imgW = spiderImg.clientWidth;
     const imgH = spiderImg.clientHeight;
+    const wallW = wall.clientWidth;
+    const wallH = wall.clientHeight;
+    const left = (wallW - imgW) / 2;
+    const top = (wallH - imgH) / 2;
 
-    // left/top відносно документа
-    const left = wallRect.left + wall.clientWidth / 2 + border - imgW / 2;
-    const top = wallRect.top + wall.clientHeight / 2 + border - imgH / 2;
-
-    spiderImg.style.position = 'fixed';
+    spiderImg.style.position = 'absolute';
     spiderImg.style.left = left + 'px';
     spiderImg.style.top = top + 'px';
     spiderImg.style.transform = 'none';
@@ -32,6 +25,14 @@ window.addEventListener('DOMContentLoaded', function () {
     spiderImg.style.zIndex = '1000';
   }
 
-  centerSpider();
+  function tryCenter() {
+    if (spiderImg.complete && spiderImg.naturalWidth > 0) {
+      centerSpider();
+    } else {
+      spiderImg.addEventListener('load', centerSpider);
+    }
+  }
+
+  tryCenter();
   window.addEventListener('resize', centerSpider);
 });
