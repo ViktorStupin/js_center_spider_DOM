@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 'use strict';
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -15,11 +14,11 @@ window.addEventListener('DOMContentLoaded', function () {
     const wallW = wall.clientWidth;
     const wallH = wall.clientHeight;
     const left = (wallW - imgW) / 2;
-    const top = (wallH - imgH) / 2;
+    const topPos = (wallH - imgH) / 2;
 
     spiderImg.style.position = 'absolute';
     spiderImg.style.left = left + 'px';
-    spiderImg.style.top = top + 'px';
+    spiderImg.style.top = topPos + 'px';
     spiderImg.style.transform = 'none';
     spiderImg.style.margin = '0';
     spiderImg.style.zIndex = '1000';
